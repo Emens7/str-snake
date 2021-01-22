@@ -47,7 +47,11 @@ class Utils extends Debouncer {
      * @returns {void}
      */
 
+    const removeNode(el: Element): void {
+        if (el.parentNode) {
+            el.parentNode.removeChild(el);
+        }
+    };
 
-}
 
-export default Utils;
+    export default Utils;
