@@ -54,7 +54,14 @@ interface IPiece {
  */
 export default class Piece implements IPiece {
   
-  
+  next: Piece | null;
+  prev: Piece | null;
+  x: number = 0;
+  y: number = 0;
+  el: HTMLDivElement;
+  direction: string = '';
+  type: string = '';
+  garden: HTMLDivElement
   
   constructor({
     x,
@@ -78,7 +85,28 @@ export default class Piece implements IPiece {
     this.garden = (document.getElementById('garden') as HTMLDivElement);
     // this.applyClass();
     this.garden.appendChild(this.el);
+  } 
+
+  setType(type: string): void {
+    this.type = type;
+    this.applyClass();
   }
+
+  applyClass(): void {
+    this.el.className = '';
+    this.el.classList.add('cell', this.type, this.direction);
+  }
+
+  isCollidingWith(node: Piece): boolean {
+    if (node == null) {
+      return false
+    } else if (this.x == node.x && this.y == node.y) {
+          return true
+        } else {
+          return false
+        }
+  }
+
 
   bend(headDirection: string) {
     if (this.direction !== headDirection) {
