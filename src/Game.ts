@@ -36,6 +36,27 @@ export default class Game extends BaseGame {
     localStorage.setItem('high-score', value.toString());
   }
 
+  //meo
+  getRandomLevel(): Level {
+    let index = Math.floor(Math.random() * this.levels.length);
+    return this.levels[index];
+  }
+
+  mayIHaveGoldenApple(): boolean {
+    let chance = 5;
+    let pick = Math.floor(Math.random() * 100);
+    return pick < chance ? true : false;
+  }
+  
+  removeGrid(): void {
+    let verticalGrid = Array.from(document.querySelectorAll('.vertical-grid'));
+    let horizontalGrid = Array.from(document.querySelectorAll('.horizontal-grid'));
+    let grids = [...verticalGrid, ...horizontalGrid];
+    grids.forEach(element => Utils.removeNode(element));
+    this.gridVisible = false;
+  }
+
+
   renderGarden () {
     const { clientHeight, clientWidth } = document.body;
     const TOP = Math.max(60, Math.floor(clientHeight * 0.10));
