@@ -193,7 +193,7 @@ export default class Game extends BaseGame {
         this.growth += 1; // Snake got bigger
       }
 
-      this.updateScore(type === 'food' ? 10 : 50); // Calculate the new score
+      this.updateScore(type === 'food' ? 1 : -2); // Calculate the new score
       this.showScore(); // Update the score
     }
   }
@@ -260,6 +260,10 @@ export default class Game extends BaseGame {
     }
 
     this.score += won;
+
+    if (this.score >= 20) {
+      this.score = 0;
+    }
 
     return this.score;
   }
@@ -411,7 +415,7 @@ export default class Game extends BaseGame {
           }
 
           if (e.keyCode in keys && this.notBackwards(e.keyCode)) {
-            if (Directions.peek() !== e.keyCode) {
+            if (Directions.peek() !== e.keyCode && e.keyCode !== keys.RIGHT) {
               Directions.set(e.keyCode);
             } else {
               // this.keyHeld -= 50;
